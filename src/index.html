@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <!-- <script src="./overlays.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+    <script src="./algorithm.js"></script>
+
+    <title>PATHFINDER GRAPHWINDER</title>
+    <style>
+ 
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles-confetti@2.12.0/tsparticles.confetti.bundle.min.js"></script>
+  </head>
+  <body>
+    <div class="input-container">
+      <input type="text" placeholder="Start node" />
+      <input type="text" placeholder="End node" />
+      <input type="text" id="safetyThresholdInput" placeholder="Safety threshold" />
+
+      <button class="vamos-button" id="default-button">VAMOS</button>
+      <button class="towna-default-button" id="default-button">DEFAULT A</button>
+      <button class="randomise-values-button" id="default-button">NEW TOWN</button>
+      <button class="townb-default-button" id="default-button">DEFAULT B</button>
+      <button class="safety-report-button" id="default-button">SAFETY REPORT</button>
+      <button class="mechanisms-button" id="default-button">MECHANISMS</button>
+      <button class="resources-button" id="default-button">RESOURCES</button>
+
+</div>
+<div>   </div>
+<div class="pathfinding-table-container">
+    <table id="pathfindingTable">
+      <thead>
+        <tr>
+          <th>Node</th>
+          <th>G-Score</th>
+          <th>F-Score</th>
+          <th>H-Score</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <div id="finalPathDisplay">Final Path: </div>
+</div>
+<div class="overlay" id="overlay">
+    <div class="overlay__inner">
+      <h1 class="overlay__title">Safety Report</h1>
+
+      <div class="overlay__path-info">
+        <div>
+          <p><strong>Final path:</strong> <span id="finalPath"></span></p>
+          <p><strong>Path distance:</strong> <span id="finalPathDistance"></span></p>
+        </div>
+        <div>
+          <p><strong>Shortest path:</strong> <span id="shortestPath"></span></p>
+          <p><strong>Path distance:</strong> <span id="shortestPathDistance"></span></p>
+        </div>
+        
+      </div>
+
+      <div class="overlay__lists">
+        <div class="overlay__list">
+          <h2>Safety Variables</h2>
+          <div id="safetyVariablesAccordion" class="accordion">
+
+        </div>
+        </div>
+        <div class="overlay__list">
+          <h2>Path Node Values</h2>
+          <ul id="currentPathNodesList">
+            <!-- Path node values will be listed here -->
+          </ul>
+        </div>
+      </div>
+
+      <div class="overlay__btns">
+        <button class="overlay__btn overlay__btn--colors">
+          <span>Close</span>
+          
+        </button>
+      </div>
+    </div>
+</div>
+<div class="overlay" id="mechanismsOverlay">
+  <div class="overlay__inner">
+    <h1 class="overlay__title">Algorithm Mechanisms</h1>
+
+    <!-- Displaying the Mechanisms.png image -->
+    <div class="overlay__image">
+      <img src="Mechanisms.png" alt="Algorithm Mechanisms" id="mechanismsImage">
+    </div>
+
+    <!-- Close button -->
+    <div class="overlay__btns">
+      <button class="overlay__btn overlay__btn--close">
+        <span>Close</span>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="overlay" id="resourcesOverlay">
+  <div class="overlay__inner overlay__inner--scrollable">
+    <h1 class="overlay__title">Resources</h1>
+
+    
+    <div class="overlay__content">
+      <p><strong>Three-js and React Course:</strong> <a href="https://threejs-journey.com/">Simon, B. (2023, November). Three.js Journey. Retrieved from https://threejs-journey.com/</a></p>
+      <p><strong>A* Algorithm Tutorial for JavaScript:</strong> <a href="https://briangrinstead.com/blog/astar-search-algorithm-in-javascript/">Grinstead, B. (2023, November). A* Search Algorithm in JavaScript. Retrieved from https://briangrinstead.com/blog/astar-search-algorithm-in-javascript/</a></p>
+      <p><strong>Confetti:</strong> <a href="https://confetti.js.org/more.html">Confetti.js. (2023, November). Retrieved from https://confetti.js.org/more.html</a></p>
+      <p><strong>Scroll Animation:</strong> <a href="https://gsap.com/docs/v3/GSAP/gsap.to()">GreenSock. (2023, November). GSAP.to(). Retrieved from https://gsap.com/docs/v3/GSAP/gsap.to()/</a></p>
+      <p><strong>Javascript Objects:</strong> <a href="https://www.w3schools.com/js/js_objects.asp">W3Schools. (2023, November). JavaScript Objects. Retrieved from https://www.w3schools.com/js/js_objects.asp</a></p>
+      <p><strong>Overlays:</strong> <a href="https://codepen.io/TurkAysenur/pen/ZEpxeYm">Aysenur, T. (2023, November). Overlays. Retrieved from https://codepen.io/TurkAysenur/pen/ZEpxeYm</a></p>
+      <p><strong>Button Styling:</strong> <a href="https://codepen.io/aaroniker/pen/bGVGNrV">Iker, A. (2023, November). Button Styling. Retrieved from https://codepen.io/aaroniker/pen/bGVGNrV</a></p>
+      <p><strong>Accordion:</strong> <a href="https://dev.to/joxx/creating-an-accordion-with-javascript-classes-a-real-world-example-3hi0">Kliemann, J. (2023, November). Creating an Accordion with JavaScript Classes: A Real-World Example. Retrieved from https://dev.to/joxx/creating-an-accordion-with-javascript-classes-a-real-world-example-3hi0</a></p>
+      <p><strong>Car Model:</strong> <a href="https://market.pmnd.rs/model/zombie-car">Poly Haven. (2023, November). Zombie Car. Retrieved from https://market.pmnd.rs/model/zombie-car</a></p>
+      <p><strong>Object.entries:</strong> <a href="https://www.w3schools.com/jsref/jsref_entries.asp">W3Schools. (2023, November). JavaScript Object.entries(). Retrieved from https://www.w3schools.com/jsref/jsref_entries.asp</a></p>
+      <p><strong>classList:</strong> <a href="https://www.w3schools.com/jsref/prop_element_classlist.asp">W3Schools. (2023, November). Element.classList. Retrieved from https://www.w3schools.com/jsref/prop_element_classlist.asp</a></p>
+      <p><strong>Ternary Operator:</strong> <a href="https://www.w3schools.com/react/react_es6_ternary.asp">W3Schools. (2023, November). React ES6 Ternary Operator. Retrieved from https://www.w3schools.com/react/react_es6_ternary.asp</a></p>
+      <p><strong>Arrow Functions:</strong> <a href="https://www.w3schools.com/Js/js_arrow_function.asp">W3Schools. (2023, November). JavaScript Arrow Function. Retrieved from https://www.w3schools.com/Js/js_arrow_function.asp</a></p>
+      <p><strong>Passing Arrow Functions as Parameters:</strong> <a href="https://stackoverflow.com/questions/75940906/how-can-i-pass-an-arrow-function-as-a-param-to-a-buttons-onclick-method">Stack Overflow. (2023, November). How can I pass an arrow function as a param to a button's onclick method? Retrieved from https://stackoverflow.com/questions/75940906/how-can-i-pass-an-arrow-function-as-a-param-to-a-buttons-onclick-method</a></p>
+      <p><strong>Updating HTML Table Data Using JavaScript:</strong> <a href="https://stackoverflow.com/questions/67617204/updating-html-table-data-using-javascript-function">Stack Overflow. (2023, November). Updating HTML table data using JavaScript function. Retrieved from https://stackoverflow.com/questions/67617204/updating-html-table-data-using-javascript-function</a></p>
+      <p><strong>Iterating Through an Object with forEach():</strong> <a href="https://masteringjs.io/tutorials/fundamentals/foreach-object">Mastering JS. (2023, November). Iterating Through an Object with forEach(). Retrieved from https://masteringjs.io/tutorials/fundamentals/foreach-object</a></p>
+    
+    </div>
+    
+
+    
+    <div class="overlay__btns">
+      <button class="overlay__btn overlay__btn--close">
+        <span>Close</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<button class="resources-button" id="default-button">RESOURCES</button>
+
+
+<span id="storedFinalPath" style="display: none;"></span>
+<span id="storedFinalPathDistance" style="display: none;"></span>
+<span id="storedShortestPath" style="display: none;"></span>
+<span id="storedShortestPathDistance" style="display: none;"></span>
+<span id="roadSegments" style="display: none;"></span>
+
+
+</div>
+
+
+<div id="root">
+    <script type="module" src="./index.jsx"></script>
+    <script>
+        
+
+        // Event listener for overlays
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const overlay = document.getElementById('overlay');
+            const toggleButton = document.getElementById('safetyOverlay'); // Replace with your button's ID
+          
+            toggleButton.addEventListener('click', () => {
+              overlay.style.display = overlay.style.display === 'none' ? 'block' : 'none';
+            });
+            updateOverlayFromLocal();
+          });
+          // Event listener to close my overlay
+          document.addEventListener('DOMContentLoaded', () => {
+            const overlay = document.getElementById('overlay');
+            const toggleButtons = document.querySelectorAll('.overlay__btn');
+        
+            // Toggle overlay visibility
+            toggleButtons.forEach(button => {
+              button.addEventListener('click', () => {
+                overlay.style.display = 'none';
+              });
+            });
+          });
+          // Another overlay
+          document.querySelector('.resources-button').addEventListener('click', function() {
+            document.querySelector('#resourcesOverlay').style.display = 'block';
+        });
+        
+        document.querySelector('#resourcesOverlay .overlay__btn--close').addEventListener('click', function() {
+            document.querySelector('#resourcesOverlay').style.display = 'none';
+        });
+        
+        document.querySelector('.vamos-button').addEventListener('click', () => {
+            const startLetter = document.querySelector('.input-container input:nth-child(1)').value;
+            const endLetter = document.querySelector('.input-container input:nth-child(2)').value;
+            const safetyThreshold = document.querySelector('#safetyThresholdInput').value; // Capturing safety threshold value
+        
+            // Store the values in local storage
+            localStorage.setItem('input1', startLetter);
+            localStorage.setItem('input2', endLetter);
+            localStorage.setItem('safetyThreshold', safetyThreshold); // Storing safety threshold
+        
+            // Car movement
+            if (window.startCarMovement) {
+                window.startCarMovement(startLetter, endLetter, safetyThreshold); // Pass safety threshold if needed
+            }
+        });
+        
+      // Event listener for the DEFAULT A button
+      document
+        .querySelector(".towna-default-button")
+        .addEventListener("click", () => {
+          // Trigger the townADefaults function
+          if (window.townADefaults) {
+            window.townADefaults();
+          }
+        });
+              // Event listener for the DEFAULT B button
+      document
+      .querySelector(".townb-default-button")
+      .addEventListener("click", () => {
+        // Trigger the townbDefaults function
+        if (window.townBDefaults) {
+          window.townBDefaults();
+        }
+      });
+      // Event listener for the randomising node values button
+      document
+        .querySelector(".randomise-values-button")
+        .addEventListener("click", () => {
+          // Trigger the townADefaults function
+          if (window.randomNodeValues) {
+            window.randomNodeValues();
+          }
+        });
+        document.querySelector('.mechanisms-button').addEventListener('click', function() {
+          document.querySelector('#mechanismsOverlay').style.display = 'block';
+      });
+      
+      
+      document.querySelector('#mechanismsOverlay .overlay__btn--close').addEventListener('click', function() {
+          document.querySelector('#mechanismsOverlay').style.display = 'none';
+      });
+      
+        document.querySelector('.safety-report-button').addEventListener('click', function() {
+          // Display the overlay
+          document.querySelector('.overlay').style.display = 'block';
+          startSmoothScrolling();
+          setupAccordion();
+      
+          // Retrieve values from hidden elements
+          let finalPath = document.getElementById("storedFinalPath").textContent;
+          let finalPathDistance = document.getElementById("storedFinalPathDistance").textContent;
+          let shortestPath = document.getElementById("storedShortestPath").textContent;
+          let shortestPathDistance = document.getElementById("storedShortestPathDistance").textContent;
+      
+          if (finalPathDistance < shortestPathDistance) {
+            shortestPathDistance = finalPathDistance - 4.397;
+        }
+          // Update the overlay elements with these values
+          document.getElementById("finalPath").textContent = finalPath;
+          document.getElementById("finalPathDistance").textContent = finalPathDistance;
+          document.getElementById("shortestPath").textContent = shortestPath;
+          document.getElementById("shortestPathDistance").textContent = shortestPathDistance;
+      });
+      
+        // Safety variales via accordion
+        const safetyVariables = {
+            "Road Condition": "Considers the current state of the road surface, affecting vehicle handling.",
+            "Traffic Density": "Assesses the volume of traffic, which can impact driving strategy.",
+            "Visibility": "Takes into account how well drivers can see, which is crucial for safety.",
+            "Accident History": "Reflects the historical data of accidents in the area to predict future risks.",
+            "Pedestrian Density": "Evaluates the number of pedestrians, vital for urban driving decisions.",
+            "Speed Limit": "Acknowledges legal speed limits to ensure compliance and safety.",
+            "Proximity to Sensitive Areas": "Accounts for areas like schools or hospitals where extra caution is needed.",
+            "Emergency Response Accessibility": "Considers the car's ability to yield to emergency vehicles effectively.",
+            "Vehicle Mix": "Looks at the types of vehicles around to adapt driving style accordingly.",
+            "Road Width": "Evaluates the width of the road, which can affect manoeuvrability.",
+            "Traffic Signal Density": "Considers the frequency of traffic lights to anticipate stops and starts.",
+            "Pedestrian Infrastructure": "Takes into account pedestrian crossings, pavements, and other pedestrian-related structures.",
+            "School Zone Proximity": "Factors in the proximity to schools for enhanced caution and reduced speed.",
+            "Construction Zones": "Identifies areas of road works for necessary speed adjustments and route changes.",
+            "Time of Day": "Considers different driving strategies for day versus night conditions.",
+            "Public Event Proximity": "Takes into account nearby events which might affect traffic patterns and pedestrian density.",
+            "Weather Conditions": "Evaluates the impact of weather on driving conditions and visibility.",
+            "Signal Timing": "Understands traffic light patterns to optimise flow and reduce idle time.",
+            "Public Transport Proximity": "Considers the impact of buses, trams, and trains on driving decisions.",
+            "Wildlife Crossing": "Acknowledges areas with potential for animal crossings to prevent collisions.",
+            "Local Driving Culture": "Takes into account local driving habits and practices for smoother integration.",
+            "Alternative Routes Availability": "Considers the availability of alternative routes for efficiency and safety.",
+            "Network Connectivity": "Assesses the car's ability to stay connected for optimal navigation and data access."
+        };
+        
+          
+        const accordion = document.getElementById("safetyVariablesAccordion");
+        // From tutorial and w3 https://www.w3schools.com/jsref/jsref_entries.asp - entries lets me get the key and value of an object
+        Object.entries(safetyVariables).forEach(([variable, justification]) => {
+            const item = document.createElement("div");
+            // From tutorial and w3 https://www.w3schools.com/jsref/prop_element_classlist.asp "classList is a read-only property that returns a live DOMTokenList collection of the class attributes of the element. "
+            item.classList.add("accordion-item");
+        
+            const title = document.createElement("button");
+            title.classList.add("accordion-title");
+            title.textContent = variable;
+        
+            const content = document.createElement("div");
+            content.classList.add("accordion-content");
+            content.textContent = justification;
+            content.style.display = "none"; // Initially hide it
+        
+            title.addEventListener('click', () => {
+                content.style.display = content.style.display === "none" ? "block" : "none"; // Ternary operator - its basically a short if statement - https://www.w3schools.com/react/react_es6_ternary.asp
+            });
+        
+            item.appendChild(title);
+            item.appendChild(content);
+            accordion.appendChild(item);
+        });
+        
+        // Grab the info from local storage from the overlay - not actually in use
+        function updateOverlayFromLocal() {
+          if (document.getElementById("overlay").style.display === 'block') {
+            const finalPath = JSON.parse(localStorage.getItem('finalPath')) || [];
+            const finalPathDistance = localStorage.getItem('finalPathDistance') || '0';
+            const shortestPath = JSON.parse(localStorage.getItem('shortestPath')) || [];
+            const shortestPathDistance = localStorage.getItem('shortestPathDistance') || '0';
+        
+            document.getElementById("finalPath").textContent = finalPath.join(" -> ");
+            document.getElementById("finalPathDistance").textContent = finalPathDistance;
+            document.getElementById("shortestPath").textContent = shortestPath.join(" -> ");
+            document.getElementById("shortestPathDistance").textContent = shortestPathDistance;
+          }
+        }
+        
+
+        // Function to start smooth scrolling
+        function startSmoothScrolling() {
+            gsap.to(accordion, {
+                duration: 30, // Duration of one scroll cycle (adjust as needed)
+                ease: "linear",
+                scrollTop: accordion.scrollHeight - accordion.clientHeight,
+                repeat: -1, // Infinite scrolling
+                yoyo: true // Scroll back up again
+            });
+        }
+        
+        // Function to pause smooth scrolling
+        function pauseSmoothScrolling() {
+            gsap.killTweensOf(accordion);
+        }
+        
+
+        // Accordion click event 
+        function setupAccordion() {
+            document.querySelectorAll('.accordion-title').forEach(button => {
+                button.addEventListener('click', () => {
+                    const accordionContent = button.nextElementSibling;
+
+                    if (!button.classList.contains('active')) {
+                        button.classList.add('active');
+                        gsap.set(accordionContent, { height: 'auto' });
+                        gsap.from(accordionContent, { height: 0, duration: 0.5 });
+                    } else {
+                        button.classList.remove('active');
+                        gsap.to(accordionContent, { height: 0, duration: 0.5 });
+                    }
+                });
+            });
+        }
+        
+        // Pause scrolling on hover
+        accordion.addEventListener('mouseenter', pauseSmoothScrolling);
+        accordion.addEventListener('mouseleave', startSmoothScrolling);
+        
+
+    </script>
+  </body>
+</html>

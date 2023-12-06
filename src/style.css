@@ -1,0 +1,279 @@
+/* I have listed the resources I have used in my resources button, before this I had never used variables in css before for example */
+html,
+body {
+  display: flex; /* Use Flexbox */
+  justify-content: space-around; /* Space out the columns */
+  align-items: flex-start; /* Align items to the start of the flex container */
+  padding: 10px; /* Add some padding around the content */
+  font-family: "Roboto", sans-serif;
+  /* These variables and their use are HEAVILY based on the code pen code I referenced. I didn't even end up using dark-color in the end for example */
+  --dark-color: hsl(var(--hue), 100%, 9%);
+  --light-color: hsl(var(--hue), 95%, 98%);
+  --base: hsl(var(--hue), 95%, 50%);
+  --complimentary1: hsl(var(--hue-complimentary1), 95%, 50%);
+  --complimentary2: hsl(var(--hue-complimentary2), 95%, 50%);
+
+  --font-family: "Poppins", system-ui;
+
+  --bg-gradient: linear-gradient(
+    to bottom,
+    hsl(var(--hue), 95%, 99%),
+    hsl(var(--hue), 95%, 84%)
+  );
+}
+#root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: ivory;
+}
+.input-container {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1000;
+}
+
+.input-container input {
+  margin-right: 5px;
+  padding: 5px 20px; /* Padding similar to the button */
+  background: rgba(
+    255,
+    255,
+    255,
+    0.375
+  ); /* Semi-transparent white background */
+  color: var(--dark-color); /* Using a darker color for text */
+  font-family: var(--font-family);
+  font-size: 1rem;
+  border: 2px solid rgba(0, 0, 0, 0.75); /* Similar border to the button */
+  border-radius: 30px; /* Rounded corners like the button */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
+  transition: all 0.3s ease;
+}
+
+.input-container input:focus {
+  outline: none;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Shadow effect on focus, similar to button hover */
+}
+
+#default-button {
+  display: block;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding: 5px 20px;
+  background: rgba(255, 255, 255, 0.375); /* Using the base color variable */
+  color: var(--light-color); /* Using the light color for text */
+  font-family: var(--font-family);
+  font-size: 1rem;
+  border: 2px solid rgba(0, 0, 0, 0.75);
+  border-radius: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+#default-button:hover {
+  background: rgba(24, 23, 23, 0.375);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+#finalPathDisplay {
+  position: relative;
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.375
+  ); /* Matching the button background */
+  color: var(--light-color); /* Trying to learn to use variables */
+  padding: 10px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  border: 2px solid rgba(0, 0, 0, 0.75); /* Similar to the button border */
+  font-size: 1.2em;
+  z-index: 10001;
+  border-radius: 30px; /* Rounded corners like the button */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
+}
+
+.pathfinding-table-container {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.5); /* Semi-transparent white background */
+  backdrop-filter: blur(10px); /* Frosted glass effect */
+  -webkit-backdrop-filter: blur(10px); /* For Safari */
+  border: 1px solid rgba(255, 255, 255, 0.75); /* Light border */
+  overflow-y: auto;
+  max-height: 250px;
+}
+#pathfindingTable {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+#pathfindingTable th,
+#pathfindingTable td {
+  border: 1px solid rgba(0, 0, 0, 0.75);
+  padding: 8px;
+  text-align: left;
+  background-color: transparent; /* Clear background for cells */
+}
+
+/* Rounded corners for first and last cell in each row */
+#pathfindingTable tr td:first-child {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+#pathfindingTable tr td:last-child {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+#pathfindingTable th {
+  background-color: rgba(0, 0, 0, 0.1); /* Lighter background for headers */
+  color: var(--light-color); /* Light color text for headers */
+}
+
+#pathfindingTable thead {
+  border-bottom: 2px solid rgba(0, 0, 0, 0.75); /* Solid border for thead */
+}
+
+/* Scrollbar styling */
+.pathfinding-table-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.pathfinding-table-container::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 4px;
+}
+
+.pathfinding-table-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+tr.path-node {
+  background-color: #e0f7fa;
+  color: #000;
+}
+
+/* Overlay Styling */
+.overlay {
+  display: none; /* Hide this bad boy initially */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+.overlay__inner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 600px;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin: auto;
+  text-align: center;
+}
+
+.overlay__inner--scrollable {
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.overlay__title {
+  margin-bottom: 20px;
+}
+
+.overlay__image img {
+  max-width: 100%;
+  height: auto;
+}
+
+.overlay__path-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.overlay__lists {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.overlay__list {
+  width: 45%;
+}
+
+.overlay__list h2 {
+  margin-bottom: 10px;
+}
+
+.overlay__btns {
+  text-align: center;
+}
+
+.overlay__btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.overlay__btn--colors {
+  background-color: #5eead4;
+  color: white;
+}
+
+/* Accordion styles */
+.accordion {
+  max-height: 300px; /* Capping height */
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  scrollbar-width: none; /* for Firefox */
+  -ms-overflow-style: none; /* for Internet Explorer and Edge */
+  &::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for Chrome, Safari, and Opera */
+  }
+}
+
+.accordion-item {
+  border-top: 1px solid #ddd;
+}
+
+.accordion-title {
+  background: none;
+  border: none;
+  padding: 10px;
+  text-align: left;
+  width: 100%;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold; /* Making title bold */
+}
+
+.accordion-content {
+  padding: 10px;
+  font-size: 14px;
+  text-align: left;
+}
